@@ -1,0 +1,1 @@
+console.log("Tiny React with red color");
