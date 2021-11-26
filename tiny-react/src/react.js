@@ -79,6 +79,7 @@ export function createElement(tagName, props, ...children) {
             // -> 이에 따라 class 컴포넌트가 상태값을 가질 수 있다.
             return instance.render();
         } else {
+            // 
             currentComponent++;
 
             return tagName.apply(null, [props, ...children]);
