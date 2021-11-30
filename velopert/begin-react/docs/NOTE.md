@@ -59,5 +59,25 @@ Hello.defaultProps = {
 }
 ```
 
-그러므로, `null`이 반환된다. `null`은 렌더링되지 않으므로, 무시된다.    
+그러므로, `null`이 반환된다. `null`은 렌더링되지 않으므로, 무시된다.
 
+## hooks
+
+### useState
+
+```jsx
+const [text, setText] = useState('');
+
+const onChange = e => setText(e.target.value);
+const onReset = () => setText('');
+
+return (
+    <div>
+        <input onChange={onChange} value={text}/>
+        <button onClick={onReset}>초기화</button>
+        <div>
+            <b>value: {text}</b>
+        </div>
+    </div>
+);
+```
