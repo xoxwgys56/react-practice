@@ -1,21 +1,30 @@
-import React from "react";
+import React, {useContext} from "react";
+import {UserDispatch} from "./App";
 
-function User({user, userDispatch}) {
+function User({user}) {
+    // console.log(`update user ${user.id}`)
+    const dispatch = useContext(UserDispatch);
+
     return (
         <div>
             <b
                 style={{cursor: 'pointer', color: user.active ? 'green' : 'red'}}
-                onClick={() => userDispatch({type: 'TOGGLE', id: user.id})}
+                onClick={() => dispatch({type: 'TOGGLE_USER', id: user.id})}
             >
                 {user.username}
             </b>
             <span>({user.email}</span>
-            <button onClick={() => userDispatch(({type: 'REMOVE', id: user.id}))}>remove</button>
+            <button onClick={() => dispatch({type: 'REMOVE_USER', id: user.id})}>remove</button>
         </div>
     )
 }
 
-function UserList({users, userDispatch}) {
+React.memo(User, ((prevProps, nextProps) => {
+    // 호출이 안됨.
+    return prevProps.user.active !== nextProps.user.active
+}));
+
+function UserList({users}) {
     return (
         <div>
             {
@@ -23,7 +32,6 @@ function UserList({users, userDispatch}) {
                     <User
                         user={user}
                         key={index}
-                        userDispatch={userDispatch}
                     />
                 ))
             }
@@ -31,5 +39,9 @@ function UserList({users, userDispatch}) {
     );
 }
 
+
 export default React.memo(UserList,
-    ((prevProps, nextProps) => prevProps.users === nextProps.users));
+    ((prevProps,
+      nextProps) =>
+        prevProps.users === nextProps.users));
+
