@@ -111,6 +111,30 @@ console.log(foo); // 0 -> 의도한 것과 다르게 동작
 
 이는 오래된 클로저 문제의 한 형태이다. `useState`결과에서 `foo`를 비구조화할 때. 초기 `useState`에서 한번 `_val`을 참조하고, 다시는 변경하지 않는다.  
 
+### Closure inside of Module
+
+위에서 발생한 `useState`의 문제는 클로저에 클로저를 더해서 해결할 수 있다:  
+
+```js
+const MyReact = (function() {
+    let _val; // 모듈 스코프에서 _val에 접근할 수 있다.
+    
+    return {
+        render(Component) {
+            const Comp = Component();
+            Comp.render();
+            return Comp;
+        },
+        useState(initialValue) {
+            _val = _val || initialValue; // 매 실행마다 새로 할당됨.
+            function setState(newVal) {
+                _val = newVal;
+            }
+            return [_val, setState]
+        },
+    };
+})();
+```
 
 ---
 
