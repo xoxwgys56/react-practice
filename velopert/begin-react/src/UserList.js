@@ -1,21 +1,21 @@
 import React from "react";
 
-function User({user, onRemove, onToggle}) {
+function User({user, userDispatch}) {
     return (
         <div>
             <b
                 style={{cursor: 'pointer', color: user.active ? 'green' : 'red'}}
-                onClick={() => onToggle(user.id)}
+                onClick={() => userDispatch({type: 'TOGGLE', id: user.id})}
             >
                 {user.username}
             </b>
             <span>({user.email}</span>
-            <button onClick={() => onRemove(user.id)}>remove</button>
+            <button onClick={() => userDispatch(({type: 'REMOVE', id: user.id}))}>remove</button>
         </div>
     )
 }
 
-function UserList({users, onRemove, onToggle}) {
+function UserList({users, userDispatch}) {
     return (
         <div>
             {
@@ -23,8 +23,7 @@ function UserList({users, onRemove, onToggle}) {
                     <User
                         user={user}
                         key={index}
-                        onRemove={onRemove}
-                        onToggle={onToggle}
+                        userDispatch={userDispatch}
                     />
                 ))
             }

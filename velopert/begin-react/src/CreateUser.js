@@ -1,6 +1,6 @@
 import React from "react";
 
-function CreateUser({username, email, onChange, onCreate}) {
+function CreateUser({username, email, userDispatch}) {
     console.log("create user")
 
     return (
@@ -8,16 +8,16 @@ function CreateUser({username, email, onChange, onCreate}) {
             <input
                 name="username"
                 placeholder="id"
-                onChange={onChange}
+                onChange={userDispatch({type: 'UPDATE'})}
                 value={username}
             />
             <input
                 name="email"
                 placeholder="email"
-                onChange={onChange}
+                onChange={userDispatch({type: 'UPDATE'})}
                 value={email}
             />
-            <button onClick={onCreate}>submit</button>
+            <button onClick={userDispatch({type: 'CREATE', username: username, email: email})}>submit</button>
         </div>
     );
 }
