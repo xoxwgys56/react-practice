@@ -1,12 +1,17 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import qs from "qs";
 
-const About = ({ location }: any) => {
-  console.log(location);
+interface MatchProps {
+  username: string;
+}
 
+function About() {
+  const location = useLocation();
   const query = qs.parse(location.search, {
     ignoreQueryPrefix: true,
   });
+  // -> `/about?detail=true`
   const detail = query.detail === "true";
 
   return (
@@ -16,6 +21,6 @@ const About = ({ location }: any) => {
       {detail && <p>additional information blah blah ...</p>}
     </div>
   );
-};
+}
 
 export default About;
