@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { createStore } from "react-redux";
+import { createStore } from "redux";
 
 const store = createStore(() => ({
     birds: [
